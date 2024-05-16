@@ -2,7 +2,10 @@ package financeiro.api.transacao.models;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.core.annotation.Order;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
@@ -14,9 +17,18 @@ import java.util.UUID;
 @Setter
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false, columnDefinition = "CHAR(36)")
+    private String id;
+
+    @Column(name = "account")
     private String account;
+
+    @Column(precision = 10, scale = 2)
     private BigDecimal balance;
 
     @CreationTimestamp
@@ -30,7 +42,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(UUID id, String account, BigDecimal balance, Instant createdAt, Instant updatedAt) {
+    public Account(String id, String account, BigDecimal balance, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.account = account;
         this.balance = balance;
