@@ -24,7 +24,6 @@ public class Account {
     )
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "CHAR(36)")
     private String id;
-
     @Column(name = "account")
     private String account;
 
@@ -48,5 +47,21 @@ public class Account {
         this.balance = balance;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 }
