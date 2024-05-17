@@ -1,16 +1,11 @@
 package financeiro.api.transacao.controller;
 import financeiro.api.transacao.dto.CreateAccountDto;
 import financeiro.api.transacao.dto.UpdateAccountDto;
-import financeiro.api.transacao.models.Account;
 import financeiro.api.transacao.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/account")

@@ -1,20 +1,13 @@
 package financeiro.api.transacao.models;
 import jakarta.persistence.*;
-import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.core.annotation.Order;
-
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.UUID;
 
 @Entity(name = "Account")
 @Table(name = "account")
-
-@Getter
-@Setter
 public class Account {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -24,6 +17,7 @@ public class Account {
     )
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "CHAR(36)")
     private String id;
+
     @Column(name = "account")
     private String account;
 
