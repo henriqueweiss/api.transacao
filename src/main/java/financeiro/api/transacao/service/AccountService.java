@@ -36,6 +36,10 @@ public class AccountService {
         return accountRepository.findById(id);
     }
 
+    public Optional<Account> getByAccount(String account) {
+        return accountRepository.findByAccount(account);
+    }
+
     public String deleteByIdAccount(String id) {
         if (accountRepository.existsById(id)) {
             accountRepository.deleteById(id);
