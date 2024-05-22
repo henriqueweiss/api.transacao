@@ -17,8 +17,8 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<String> create(@RequestBody @Valid CreateTransactionDto transaction) {
-        transactionService.createTransaction(transaction);
-        return ResponseEntity.ok("ok");
+        int statusCode = transactionService.createTransaction(transaction) ? 201 : 400;
+        return ResponseEntity.status(statusCode).build();
     }
 
 }

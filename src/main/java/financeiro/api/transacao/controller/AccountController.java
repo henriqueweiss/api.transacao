@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/account")
@@ -15,9 +16,11 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody @Valid CreateAccountDto account) {
-        accountService.createAccount(account);
-        return ResponseEntity.ok("ok");
+    public ResponseEntity<HashMap<String, String>> create(@RequestBody @Valid CreateAccountDto account) {
+        HashMap<String, String> response = new HashMap<>();
+        var accountId = accountService.createAccount(account);
+        response.put("id", accountId);
+        return ResponseEntity.status(201).body(response);
     }
 
     @GetMapping
@@ -26,21 +29,20 @@ public class AccountController {
             var accounts = accountService.getAllAccount();
             return ResponseEntity.ok(accounts);
         }
-
         var account = accountService.getById(id);
-        return ResponseEntity.ok(account);
+        return ResponseEntity.status(200).body(account);
     }
 
 
     @DeleteMapping
     public ResponseEntity<String> deleteById(@RequestParam("id") String id){
-        var result = accountService.deleteByIdAccount(id);
-        return ResponseEntity.ok(id + " " + result);
+        int statusCode = accountService.deleteByIdAccount(id) ? 204 : 404;
+        return ResponseEntity.status(statusCode).build();
     }
 
     @PutMapping
     public ResponseEntity<String> update(@RequestParam("id") String id, @RequestBody @Valid UpdateAccountDto account){
-        var result = accountService.updateAccount(id, account);
-        return ResponseEntity.ok(result);
+        int statusCode = accountService.updateAccount(id, account) ? 201 : 404;
+        return ResponseEntity.status(statusCode).build();
     }
 }

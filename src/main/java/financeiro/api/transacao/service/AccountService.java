@@ -15,7 +15,7 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public boolean createAccount(CreateAccountDto account) {
+    public String createAccount(CreateAccountDto account) {
 
         var createAccount = new Account(
                 UUID.randomUUID().toString(),
@@ -24,8 +24,8 @@ public class AccountService {
                 Instant.now(),
                 null);
 
-        accountRepository.save(createAccount);
-        return true;
+        Account accountCreated = accountRepository.save(createAccount);
+        return accountCreated.getId();
     }
 
     public List<Account> getAllAccount(){
@@ -40,16 +40,16 @@ public class AccountService {
         return accountRepository.findByAccount(account);
     }
 
-    public String deleteByIdAccount(String id) {
+    public boolean deleteByIdAccount(String id) {
         if (accountRepository.existsById(id)) {
             accountRepository.deleteById(id);
-            return "Deletado com sucesso";
-        } else {
-            return "ID inválido";
+            return true;
+        }else{
+            return false;
         }
     }
 
-    public String updateAccount(String id, UpdateAccountDto account) {
+    public boolean updateAccount(String id, UpdateAccountDto account) {
         var accountToUpdate = accountRepository.findById(id);
 
         if (accountToUpdate.isPresent()) {
@@ -61,11 +61,10 @@ public class AccountService {
             if (account.balance().isPresent()){
                 existingAccount.setBalance(account.balance().get());
             }
-
             accountRepository.save(existingAccount);
-            return "Atualizado com sucesso";
+            return true;
         } else {
-            return "ID inválido";
+            return false;
         }
     }
 }

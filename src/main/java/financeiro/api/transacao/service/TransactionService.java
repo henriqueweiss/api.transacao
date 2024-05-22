@@ -23,9 +23,6 @@ public class TransactionService {
         var originAccount = accountService.getByAccount(transaction.getOriginAccount());
         var targetAccount = accountService.getByAccount(transaction.getTargetAccount());
 
-        System.out.println(originAccount);
-        System.out.println(targetAccount);
-
         if (originAccount.isPresent() && targetAccount.isPresent()) {
             var existingOriginAccount = originAccount.get();
             var existingTargetAccount = targetAccount.get();
@@ -61,6 +58,7 @@ public class TransactionService {
 
         if (executeTransaction(createTransaction)){
             transactionRepository.save(createTransaction);
+            return true;
         }
 
         return false;

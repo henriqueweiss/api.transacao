@@ -18,7 +18,7 @@ public class Account {
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "CHAR(36)")
     private String id;
 
-    @Column(name = "account")
+    @Column(name = "account", unique = true)
     private String account;
 
     @Column(precision = 10, scale = 2)
