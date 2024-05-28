@@ -18,6 +18,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
 
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
+            "/swagger-ui/index.html",
+            "/swagger-ui/favicon-16x16.png",
+            "/swagger-ui/favicon-32x32.png",
+            "/swagger-ui/index.html",
+            "/swagger-ui/swagger-ui.css",
+            "/swagger-ui/index.css",
+            "/swagger-ui/swagger-ui-bundle.js",
+            "/swagger-ui/swagger-initializer.js",
+            "/swagger-ui/swagger-ui-standalone-preset.js",
+            "/v3/api-docs",
+            "/v3/api-docs/swagger-config",
+            "/v3/api-docs/public",
             "/users/login", //url que usaremos para fazer login
             "/users" //url que usaremos para criar um usuário
     };
